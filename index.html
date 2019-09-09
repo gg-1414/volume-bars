@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Volume Meter Sample</title>
+		<link rel="stylesheet" type="text/css" href="style.css"/> 
+		<!-- Include the volume meter component -->
+		<script src="volume-meter.js"></script>
+		<!-- Include the main app logic -->
+		<script src="main.js"></script>
+	</head>
+	<body>
+		<div id="background"></div>
+		<canvas id="meter" width="500" height="50"></canvas>
+		<div class="buttons">
+			<div class="level-input">
+				<label for="level">Level</label>
+				<input type="text" name="level" id="level">
+			</div>
+			<button id="start">START</button>
+			<button id="stop">STOP</button>
+		</div>
+	</body>
+</html>

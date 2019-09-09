@@ -1,0 +1,91 @@
+* { font-family: monospace; }
+
+body { 
+  width: 100vw; 
+  height: 100vh; 
+  background: blue;
+  margin: 0;
+  display: flex;
+}
+
+#background {
+  width: 100%; 
+  height: 100%;
+  z-index: 5; 
+  background: linear-gradient(transparent, #00035f, transparent);
+  animation: bg 1s infinite linear; 
+  background-size: 100% 7px;
+  position: absolute;
+}
+
+canvas {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.buttons {
+  z-index: 10;
+  position: absolute; 
+  top: 0;
+  left: 0;
+  display: flex; 
+  flex-direction: column;
+  padding: 0 35px 50px;
+  border-radius: 20px;
+  /* background: linear-gradient(360deg, #a9a9a9, white); */
+}
+
+button {
+  background-color: transparent;
+  margin-top: 35px;
+  font-size: 35px;
+  font-family: monospace;
+  padding: 16px 32px;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: 300ms;
+  color: transparent;
+  border: 5px solid rgba(0,0,0,0.5);
+}
+
+button:hover {
+  color: white;
+  background-color: #ff000091;
+  box-shadow: 0px 16px 0 2px #981356;
+}
+
+button:focus { 
+  outline: none; 
+}
+
+button:active {
+  box-shadow: 0 2px 0 1px #981356;
+  transform: translateY(16px);
+}
+
+.level-input {
+  margin-top: 35px;
+  width: 120px;
+}
+
+label[for=level] {
+  color: white;
+  padding-right: 4px;
+  font-size: 18px;
+}
+
+#level {
+  padding: 4px 7px;
+  font-size: 18px;
+  border-radius: 3px;
+  border: none;
+  width: 25%;
+  text-align: right;
+}
+
+
+@keyframes bg {
+  0% { background-position: 0 0; }
+  100% { background-position: 8px 8px; }
+}
