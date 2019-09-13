@@ -1,5 +1,4 @@
 var canvas = null;
-
 var audioContext = null;
 var meter = null;
 var canvasContext = null;
@@ -14,22 +13,41 @@ var levelNum = 15;
 // 15 default for indoor space playing music from laptop at a low level
 // adjust this from input field input#level depending on how loud the environment is
 
-var currentVISUAL = 1; 
+var currentVISUAL = '1'; 
 
-var particles = {}, 
-      particleIndex = 0,
-      particleNum = 2; 
+// >> Visuals Key: >> 
+var visuals = {};
+var bars = {}, 
+    particles = {};
 
 window.onload = function() {
   level = this.document.getElementById('level');
   canvas = this.document.getElementById('canvas');
 
-
+  // >> Event Listeners >> 
   level.addEventListener('keypress', (e) => {
     if (e.keyCode == 13) { // pressing enter sets levelNum
       levelNum = e.target.value; 
     }
   })
+
+  var visualsList = this.document.getElementById('visuals-list')
+
+  visualsList.addEventListener('click', function(e){
+    // console.log('clicked', typeof e.target.dataset.id)
+    currentVISUAL = e.target.dataset.id;
+    // console.log('VISUAL: ', visuals[e.target.dataset.id].drawLoop)
+    destroyNode();
+    clearAnimation();
+    visuals[currentVISUAL].drawLoop()
+  })
+
+  this.document.getElementById('stop').addEventListener('click', () => {
+    destroyNode();
+    clearAnimation();
+  })
+
+  // << << 
 
   this.document.getElementById('start').addEventListener('click', () => {
     // grab our canvas
@@ -66,10 +84,6 @@ window.onload = function() {
       alert('getUserMedia threw exception :' + e);
     }
   })
-
-  this.document.getElementById('stop').addEventListener('click', () => {
-    destroyNode();
-  })
 }
 
 
@@ -88,49 +102,72 @@ function gotStream(stream) {
   mediaStreamSource.connect(meter);
 
   // kick off the visual updating
-  drawLoop();
-  // currentVISUAL = 
-  // particles();
+  // console.log('VISUAL', typeof visuals[currentVISUAL])
+  visuals[currentVISUAL].drawLoop();
+  // drawLoop();
 }
 
-// one.drawLoop()
 
-function drawLoop() {
+// >> >> >> >> VISUALS >> >> >> >>  
+
+// BARS VISUAL 
+bars.drawLoop = function() {
   // clear the background
   // canvasContext.clearRect(0,0,WIDTH,HEIGHT);
 
   // check if we're currently clipping
-  // if (meter.checkClipping())
-  //   canvasContext.fillStyle = "red";
-  // else
-  //   canvasContext.fillStyle = `rgba(${Math.random() * 255}, 
-  //                                   ${Math.random() * 255}, 
-  //                                   ${Math.random() * 255},
-  //                                   ${Math.random() * 1})`;
+  if (meter.checkClipping())
+    canvasContext.fillStyle = "red";
+  else
+    canvasContext.fillStyle = `rgba(${Math.random() * 255}, 
+                                    ${Math.random() * 255}, 
+                                    ${Math.random() * 255},
+                                    ${Math.random() * 1})`;
 
   // draw a bar based on the current volume
-  // canvasContext.fillRect(0, 0, meter.volume*WIDTH*levelNum, HEIGHT); 
-  // canvasContext.fillRect(WIDTH, 0, meter.volume*WIDTH*-levelNum, HEIGHT);
+  canvasContext.fillRect(0, 0, meter.volume*WIDTH*levelNum, HEIGHT); 
+  canvasContext.fillRect(WIDTH, 0, meter.volume*WIDTH*-levelNum, HEIGHT);
 
   // set up the next visual callback
-  // rafID = window.requestAnimationFrame( drawLoop );
-
-  canvasContext.fillStyle = "white";
-  canvasContext.fillRect(0, 0, WIDTH, HEIGHT);
-
-  drawParticles()
+  rafID = window.requestAnimationFrame( bars.drawLoop );
 }
 
-function Particle() {
+// PARTICLES VISUAL
+particles.allParticles = {}; 
+particles.particleIndex = 0; 
+particles.particleNum = 1; 
+
+particles.drawLoop = function() {
+  intervalID = setInterval(function() {
+    // console.log('levelNum: ', levelNum)
+    // console.log('METER VOLUME: ', meter.volume)
+    canvasContext.globalCompositeOperation = "source-over";
+    canvasContext.fillStyle = "rgba(0,0,0,0.1)";
+    canvasContext.fillRect(0, 0, WIDTH, HEIGHT);
+  
+    for (var i = 0; i < particles.particleNum; i++) {
+      new particles.Particle(); 
+    }
+  
+    canvasContext.globalCompositeOperation = "lighter";
+    for (var i in particles.allParticles) {
+      particles.allParticles[i].draw();
+    }
+  }, 2000);
+
+  rafID = window.requestAnimationFrame( particles.drawLoop );
+}
+
+particles.Particle = function() {
   this.x = WIDTH / 2; 
   this.y = HEIGHT /2; 
   this.vx = Math.random() * 10 - 5; 
   this.vy = Math.random() * 10 - 5; 
   this.gravity = 0.3; 
 
-  particleIndex++; 
-  particles[particleIndex] = this;
-  this.id = particleIndex; 
+  particles.particleIndex++; 
+  particles.allParticles[particles.particleIndex] = this;
+  this.id = particles.particleIndex; 
 
   this.life = 0; 
   this.maxLife = Math.random() * 30 + 50; 
@@ -142,7 +179,7 @@ function Particle() {
   }
 }
 
-Particle.prototype.draw = function() {
+particles.Particle.prototype.draw = function() {
   this.x += this.vx;
   this.y += this.vy;
 
@@ -153,35 +190,27 @@ Particle.prototype.draw = function() {
 
   this.life++;
   if (this.life >= this.maxLife) {
-    delete particles[this.id];
+    delete particles.allParticles[this.id];
   }
 
   canvasContext.fillStyle = this.color; 
   canvasContext.fillRect(this.x, this.y, 5, 5); 
 }
 
-function drawParticles() {
-  intervalID = setInterval(function() {
-    // console.log('levelNum: ', levelNum)
-    // console.log('METER VOLUME: ', meter.volume)
-    canvasContext.globalCompositeOperation = "source-over";
-    canvasContext.fillStyle = "rgba(0,0,0,0.1)";
-    canvasContext.fillRect(0,0,WIDTH, HEIGHT);
+visuals['1'] = bars; 
+visuals['2'] = particles; 
 
-    for (var i = 0; i < particleNum; i++) {
-      new Particle(); 
-    }
-
-    canvasContext.globalCompositeOperation = "color-dodge";
-    // console.log('particles: ', particles)
-    for (var i in particles) {
-      particles[i].draw();
-    }
-  }, levelNum * 2) // 
-}
-
+// KILL SESSION
 function destroyNode() {
   meter.shutdown();
+}
+
+function clearAnimation() {
+  console.log('interval', intervalID)
+  console.log('rafID', rafID)
   window.cancelAnimationFrame( rafID );
-  clearInterval(intervalID)
+  clearInterval(intervalID);
+
+  // rafID = null;
+  // intervalID = null; 
 }

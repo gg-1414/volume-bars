@@ -5,9 +5,6 @@
 		<link rel="stylesheet" type="text/css" href="style.css"/> 
 		<script src="p5/p5.min.js"></script>
 
-		<!-- Include the visuals -->	
-		<script src="visuals/one.js"></script>
-
 		<!-- Include the volume meter component -->
 		<script src="volume-meter.js"></script>
 
@@ -16,7 +13,9 @@
 	</head>
 	<body>
 		<div id="background"></div>
-		<canvas id="canvas" width="500" height="500"></canvas>
+		<div id="canvas-wrapper">
+			<canvas id="canvas" width="500" height="500"></canvas>
+		</div>
 		<div class="buttons">
 			<div class="level-input">
 				<input type="text" name="level" id="level" placeholder="Volume Level">
@@ -24,10 +23,10 @@
 			<button id="start">START</button>
 			<button id="stop">STOP</button>
 		</div>
-		<div class="visuals-list">
-			<button id="visual-one" data-id="one"></button>
-			<button id="visual-two" data-id="two"></button>
-			<button id="visual-three" data-id="three"></button>
+		<div id="visuals-list">
+			<button id="visual-one" data-id="1"></button>
+			<button id="visual-two" data-id="2"></button>
+			<button id="visual-three" data-id="3"></button>
 		</div>
 	</body>
 </html>
