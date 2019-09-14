@@ -27,7 +27,7 @@ window.onload = function() {
         // console.log(time)
           context.beginPath();
           
-          context.strokeStyle = `hsl(${i * 4}deg, 100%, 50%)`;
+          context.strokeStyle = `hsl(${i * 4}, 100%, 50%)`
           
           var angle_1 = ((90 + i) + 180 * Math.sin(time)) * (Math.PI / 180);
           var angle_2 = ((180 + i) + 180 * Math.sin(time)) * (Math.PI / 180);
