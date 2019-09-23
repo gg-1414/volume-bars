@@ -2,6 +2,7 @@
 <html>
 	<head>
 		<title>Volume Meter Sample</title>
+		<link rel="stylesheet" type="text/css" href="keyframes.css"/> 
 		<link rel="stylesheet" type="text/css" href="style.css"/> 
 		<!-- <script src="p5/p5.min.js"></script> -->
 
@@ -10,14 +11,14 @@
 
 		<!-- Include the main app logic -->
 		<!-- <script src="main.js"></script> -->
-		<script src="./visuals/rainbow.js"></script>
+		<script src="./visuals/spiral_4.js"></script>
 	</head>
 	<body>
 		<div id="background"></div>
 		<div id="canvas-wrapper">
-			<canvas id="canvas" width="500" height="500"></canvas>
+			<canvas id="canvas"></canvas>
 		</div>
-		<div class="buttons">
+		<div class="settings">
 			<div class="level-input">
 				<input type="text" name="level" id="level" placeholder="Volume Level">
 			</div>
