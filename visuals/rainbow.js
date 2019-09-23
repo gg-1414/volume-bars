@@ -1,8 +1,4 @@
 var rafID;
-var data = { 'pathData': [] };
-var moveToData = { 'moveToData': [] };
-var lineTo1Data = { 'lineTo1Data': [] };
-var lineTo2Data = { 'lineTo2Data': [] };
 
 window.onload = function() {
   var canvas = document.getElementById("canvas");
@@ -71,19 +67,6 @@ window.onload = function() {
         // context.lineTo(line3X, line3Y);
         // context.lineTo(line4X, line4Y);
 
-        data['pathData'].push({ 
-          'moveX': moveX, 
-          'moveY': moveY,
-          'line1X': line1X,
-          'line1Y': line1Y,
-          'line2X': line2X,
-          'line2Y': line2Y,
-        });
-
-        moveToData['moveToData'].push({
-          'moveX': moveX,
-          'moveY': moveY
-        });
         
         context.closePath();
         context.stroke();
@@ -94,32 +77,5 @@ window.onload = function() {
   }
 
   rafID = requestAnimationFrame(mainLoop);
-
-  setTimeout(function() {
-
-    // let output = Object.values(data).reduce(function(obj, angleData, index) {
-    //   obj[index + 1] = angleData.slice(0,50);
-    //   return obj;
-    // }, {})
-
-    // console.log(JSON.stringify(output))
-    // console.log(output)
-    console.log(data)
-
-    // exportToJsonFile(moveToData);
-    
-  }, 180000)
-
-  // function exportToJsonFile(jsonData) {
-  //   let dataStr = JSON.stringify(jsonData);
-  //   let dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
-
-  //   let exportFileDefaultName = 'data.json';
-
-  //   let linkElement = document.createElement('a');
-  //   linkElement.setAttribute('href', dataUri);
-  //   linkElement.setAttribute('download', exportFileDefaultName);
-  //   linkElement.click();
-  // }
 
 }

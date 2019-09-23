@@ -45,3 +45,47 @@ const cutOffPoints = data['moveToData'].slice(cutOffPointsIndices[0], cutOffPoin
 // 6282: {moveX: 0.00014414714559936808, moveY: -606.4999541165179}
 ```
 
+--- 
+
+# Helpers 
+
+## Exporting the data as json 
+```
+function exportToJsonFile(jsonData) {
+    let dataStr = JSON.stringify(jsonData);
+    let dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+
+    let exportFileDefaultName = 'data.json';
+
+    let linkElement = document.createElement('a');
+    linkElement.setAttribute('href', dataUri);
+    linkElement.setAttribute('download', exportFileDefaultName);
+    linkElement.click();
+}
+
+exportToJsonFile(moveToData);
+
+// https://www.codevoila.com/post/30/export-json-data-to-downloadable-file-using-javascript
+```
+
+## Grabbing the data to be exported as json 
+```
+var data = { 'pathData': [] };
+var moveToData = { 'moveToData': [] };
+
+// All Data 
+data['pathData'].push({ 
+  'moveX': moveX, 
+  'moveY': moveY,
+  'line1X': line1X,
+  'line1Y': line1Y,
+  'line2X': line2X,
+  'line2Y': line2Y,
+});
+
+// moveTo Data Only 
+moveToData['moveToData'].push({
+  'moveX': moveX,
+  'moveY': moveY
+});
+```
