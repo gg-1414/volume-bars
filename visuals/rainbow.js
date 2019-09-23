@@ -1,7 +1,8 @@
 var rafID;
-var data = {
-  'moveTo': []
-};
+var data = { 'pathData': [] };
+var moveToData = { 'moveToData': [] };
+var lineTo1Data = { 'lineTo1Data': [] };
+var lineTo2Data = { 'lineTo2Data': [] };
 
 window.onload = function() {
   var canvas = document.getElementById("canvas");
@@ -64,29 +65,27 @@ window.onload = function() {
         context.strokeStyle = `hsl(${i *2}, 100%, 60%)`
         // context.strokeStyle = `hsl(${i * 10 }, ${i*1}, 100%)`
         context.moveTo(moveX, moveY);
+        context.lineTo(moveX+10, moveY+10);
         context.lineTo(line1X, line1Y);
-        // context.lineTo(line2X, line2Y);
+        context.lineTo(line2X, line2Y);
         // context.lineTo(line3X, line3Y);
         // context.lineTo(line4X, line4Y);
 
+        data['pathData'].push({ 
+          'moveX': moveX, 
+          'moveY': moveY,
+          'line1X': line1X,
+          'line1Y': line1Y,
+          'line2X': line2X,
+          'line2Y': line2Y,
+        });
 
-        // if (i <= 10) {
-          // if (!data[i]) {
-          //   data[i] = {}
-          // } else {
-            // data[i]['angle1'] ? data[i]['angle1'].push(angle_1) : data[i]['angle1'] = [angle_1]
-            // data[i]['angle2'] ? data[i]['angle2'].push(angle_2) : data[i]['angle2'] = [angle_2]
-            // data[i]['angle3'] ? data[i]['angle3'].push(angle_3) : data[i]['angle3'] = [angle_3]
-
-            // data[i]['moveTo'] ? data[i]['moveTo'].push([moveX, moveY]) : data[i]['moveTo'] = [[moveX, moveY]]
-            // data[i]['lineTo1'] ? data[i]['lineTo1'].push([line1X, line1Y]) : data[i]['lineTo1'] = [[line1X, line1Y]]
-            // data[i]['lineTo2'] ? data[i]['lineTo2'].push([line2X, line2Y]) : data[i]['lineTo2'] = [[line2X, line2Y]]
-          // }
-        // }
-
-        data['moveTo'].push({ 'x': moveX, 'y': moveY });
+        moveToData['moveToData'].push({
+          'moveX': moveX,
+          'moveY': moveY
+        });
         
-        // context.closePath();
+        context.closePath();
         context.stroke();
       }    
       
@@ -107,9 +106,9 @@ window.onload = function() {
     // console.log(output)
     console.log(data)
 
-    // exportToJsonFile(data);
+    // exportToJsonFile(moveToData);
     
-  }, 1000)
+  }, 180000)
 
   // function exportToJsonFile(jsonData) {
   //   let dataStr = JSON.stringify(jsonData);

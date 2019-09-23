@@ -14,7 +14,7 @@
 }
 .line3 {
   fill: none;
-  stroke: blue;
+  stroke: purple;
   stroke-width: 2px;
 }
 </style>
@@ -37,13 +37,13 @@ var x = d3.scaleTime().range([0, width]);
 var y = d3.scaleLinear().range([height, 0]);
 
 // define the line
-var valueline1 = d3.line()
-    .x(function(d) { return x(d.moveX); })
-    .y(function(d) { return y(d.moveY); });
+// var valueline1 = d3.line()
+//     .x(function(d) { return x(d.moveX); })
+//     .y(function(d) { return y(d.moveY); });
 
 // var valueline2 = d3.line()
-//     .x(function(d) { return x(d.line1X); })
-//     .y(function(d) { return y(d.line1Y); });
+    // .x(function(d) { return x(d.line1X); })
+    // .y(function(d) { return y(d.line1Y); });
 
 var valueline3 = d3.line()
     .x(function(d) { return x(d.line2X); })
@@ -76,14 +76,14 @@ function draw(data, key) {
 	// })
  
   // Scale the range of the data
-  x.domain(d3.extent(data, function(d) { return Math.max(d.moveX, d.line1X, d.line2X); }));
-  y.domain(d3.extent(data, function(d) { return Math.max(d.moveY, d.line1Y, d.line2Y); }));
+  x.domain(d3.extent(data, function(d) { return Math.max(d.line2X); }));
+  y.domain(d3.extent(data, function(d) { return Math.max(d.line2Y); }));
   
   // Add the valueline path.
-  svg.append("path")
-      .data([data])
-      .attr("class", "line1")
-      .attr("d", valueline1);
+  // svg.append("path")
+  //     .data([data])
+  //     .attr("class", "line1")
+  //     .attr("d", valueline1);
 
   // svg.append("path")
   //     .data([data])

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style> /* set the CSS */
+
+.line1 {
+  fill: none;
+  stroke: red;
+  stroke-width: 2px;
+}
+.line2 {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 2px;
+}
+.line3 {
+  fill: none;
+  stroke: blue;
+  stroke-width: 2px;
+}
+
+.x-axis, .y-axis { 
+  position: absolute; 
+  opacity: 0.6;
+}
+.x-axis {
+  width: 100vw;
+  /* bottom: 424px;
+  left: -26px; */
+  bottom: 449px;
+  left: -23px;
+}
+.y-axis {
+  height: 100vh;
+  /* left: 271px;
+  top: 20px; */
+  left: 253px;
+  top: 21px;
+}
+svg {
+  position: relative;
+  z-index: -10;
+  /* left: -42px;
+  bottom: -13px; */
+  left: -29px;
+  bottom: 6px;
+}
+</style>
+<body>
+
+  <img src="x-axis-screenshot.png" class="x-axis" />
+  <img src="y-axis-screenshot.png" class="y-axis" />
+
+<!-- load the d3.js library -->    	
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script>
+
+// set the dimensions and margins of the graph
+var margin = {top: 20, right: 20, bottom: 30, left: 50},
+    width = window.innerWidth - margin.left - margin.right,
+    height = window.innerHeight - margin.top - margin.bottom;
+
+// parse the date / time
+// var parseTime = d3.timeParse("%Y");
+
+// set the ranges
+var x = d3.scaleLinear().range([0, width]);
+var y = d3.scaleLinear().range([0, height]);
+
+// define the line
+var valueline1 = d3.line()
+    .x(function(d) { return x(d.moveX); })
+    .y(function(d) { return y(d.moveY); });
+
+// var valueline2 = d3.line()
+//     .x(function(d) { return x(d.line1X); })
+//     .y(function(d) { return y(d.line1Y); });
+
+var valueline3 = d3.line()
+    .x(function(d) { return x(d.line2X); })
+    .y(function(d) { return y(d.line2Y); });
+  
+// append the svg obgect to the body of the page
+// appends a 'group' element to 'svg'
+// moves the 'group' element to the top left margin
+var svg = d3.select("body").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform",
+          "translate(" + margin.left + "," + margin.top + ")");
+
+function draw(data, key) {
+  
+  // var data = data[key];
+  
+  // format the data
+  // data.forEach(function(d) {
+  //     d.Date = parseTime(d.Date);
+  //     d.Imports = +d.Imports;
+  //     d.Exports = +d.Exports;
+  // });
+  
+  // sort years ascending
+  // data.sort(function(a, b){
+  //   return a["Date"]-b["Date"];
+	// })
+ 
+  // Scale the range of the data
+  x.domain(d3.extent(data, function(d) { return Math.max(d.moveX); }));
+  y.domain(d3.extent(data, function(d) { return Math.max(d.moveY); }));
+  
+  // Add the valueline path.
+  svg.append("path")
+      .data([data])
+      .attr("class", "line1")
+      .attr("d", valueline1);
+
+  // svg.append("path")
+  //     .data([data])
+  //     .attr("class", "line2")
+  //     .attr("d", valueline2);  
+
+  // svg.append("path")
+  //     .data([data])
+  //     .attr("class", "line3")
+  //     .attr("d", valueline3);  
+
+  // Add the X Axis
+  svg.append("g")
+      .attr("transform", "translate(0," + height + ")")
+      .call(d3.axisBottom(x));
+
+  // Add the Y Axis
+  svg.append("g")
+      .call(d3.axisLeft(y));
+  }
+// Get the data
+d3.json("moveToData_180.json", function(error, data) {
+  if (error) throw error;
+  
+  // moveToData_3.length => 348
+  // moveToData_10.length => 896
+  // moveToData_20.length => 972
+  // moveToData_60.length => 6342
+  // moveToData_120.length => 14170
+  // moveToData_180.length => 14686
+
+  // console.log(data['moveToData'].length);
+  const halfWayMark = data['moveToData'].length / 2; 
+  console.log('data length', data['moveToData'].length)
+  console.log(data['moveToData'][14686 / 2]);
+
+  const x = data['moveToData'].map(coord => {
+    return coord['moveX'];
+  })
+
+  const y = data['moveToData'].map(coord => {
+    return coord['moveY'];
+  })
+
+  // moveToData_60 [min ... max]
+  // x => [-105.31757865081968 ... 351.3031915802577
+  // y => [-108.32235287668527 ... 606.4999874203475]
+
+  // length 
+  // console.log('x.length: ', x.length);
+  // console.log('y.length: ', y.length);
+
+  // console.log('x.min: ', Math.min(...x));
+  // console.log('y.max: ', Math.max(...y));
+
+  // find index
+  // moveToData_180 x[3141] , y[3140]
+  // const xMinIndex = x.indexOf(Math.min(...x));
+  // const yMaxIndex = y.indexOf(Math.max(...y));
+  // console.log('Index x.min: ', xMinIndex); 
+  // console.log('Index y.max: ', yMaxIndex);
+
+  // indices around the cut off point
+  // const cutOffPointsIndices = [];
+
+  // data['moveToData'].forEach(function(coord, index) {
+  //   coord['moveX'] >= -50 && coord['moveX'] <= 0 &&
+  //   coord['moveY'] >= 580 && coord['moveY'] <= 607 ? 
+  //   cutOffPointsIndices.push(index) : false;
+  // });
+
+
+  // log the values at cut off points 
+  // const cutOffPoints = data['moveToData'].slice(cutOffPointsIndices[0], cutOffPointsIndices[cutOffPointsIndices.length-1]+1)
+
+  // y.max = 3140 
+  // x.min = 3141 
+
+  console.log('slice: ', data['moveToData'].slice(3130, 3190));
+  
+  // const cutOffPoints = data['moveToData'].slice(3140, 9500);
+  const cutOffPoints = data['moveToData'].slice(3140);
+
+  // cutOffPoint2:
+  // 6282: {moveX: 0.00014414714559936808, moveY: -606.4999541165179}
+
+  console.log('points after cutOff: ', cutOffPoints);
+
+  const cutOffPoints2 = cutOffPoints.slice(6282, 10000);
+  console.log('points after cutOff2:', cutOffPoints2);
+  
+
+  // trigger render
+  // draw(data, "moveToData");
+  draw(cutOffPoints2, "moveToData");
+});
+
+</script>
+</body>
