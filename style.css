@@ -43,6 +43,7 @@ body {
   overflow: hidden; 
   position: relative;
   margin: 0 auto;
+  z-index: 10; 
 }
 
 canvas {
@@ -81,6 +82,10 @@ button {
   border: 5px solid rgba(0,0,0,0.1);
 }
 
+button:focus { 
+  outline: none; 
+}
+
 .settings button:hover {
   color: white;
   background-color: #ff000091;
@@ -97,11 +102,7 @@ button {
   background-color: #ff000091;
 } */
 
-button:focus { 
-  outline: none; 
-}
-
-button:active {
+.settings button:active {
   /* box-shadow: 0 2px 0 1px #981356;
   transform: translateY(16px); */
   /* box-shadow: 0 2px 0 1px #01ffd0; */
@@ -158,7 +159,7 @@ button:active {
 #visuals-list button:hover {
   color: white;
   background-color: #00063191;
-  box-shadow: 0px 16px 0 2px #444444;
+  /* box-shadow: 0px 16px 0 2px #444444; */
 }
 
 #visuals-list button:focus { 
