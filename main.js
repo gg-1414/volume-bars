@@ -2,8 +2,6 @@ var canvas = null;
 var audioContext = null;
 var meter = null;
 var canvasContext = null;
-var WIDTH=500;
-var HEIGHT=500;
 
 var rafID = null;
 var intervalID = null;
@@ -13,16 +11,34 @@ var levelNum = 15;
 // 15 default for indoor space playing music from laptop at a low level
 // adjust this from input field input#level depending on how loud the environment is
 
-var currentVISUAL = '1'; 
+var current = '3'; 
 
 // >> Visuals Key: >> 
-var visuals = {};
-var bars = {}, 
-    particles = {};
+var visuals = {
+  // '1': bars,
+  // '2': particles, 
+  '3': spiral1, 
+  '4': spiral2, 
+  '5': spiral3, 
+  '6': spiral4, 
+  '7': starwarp, 
+};
+
 
 window.onload = function() {
   level = this.document.getElementById('level');
   canvas = this.document.getElementById('canvas');
+
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  canvasContext = canvas.getContext("2d");
+
+  // canvas dimensions resized when window is resized
+  addEventListener("resize", () => { // window.addEventListener 
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  });
 
   // >> Event Listeners >> 
   level.addEventListener('keypress', (e) => {
@@ -31,23 +47,20 @@ window.onload = function() {
     }
   })
 
-  var visualsList = this.document.getElementById('visuals-list')
+  var visualsList = this.document.getElementById('visuals-list');
 
   visualsList.addEventListener('click', function(e){
-    // console.log('clicked', typeof e.target.dataset.id)
-    currentVISUAL = e.target.dataset.id;
-    // console.log('VISUAL: ', visuals[e.target.dataset.id].drawLoop)
-    destroyNode();
-    clearAnimation();
-    visuals[currentVISUAL].drawLoop()
+    visuals[current].stop = true;
+    current = e.target.dataset.id;
+    drawLoop();
   })
 
   this.document.getElementById('stop').addEventListener('click', () => {
-    destroyNode();
-    clearAnimation();
+    destroyMeter();
+    visuals[current].stop = true;
   })
 
-  // << << 
+  // << << << << << << << << << << 
 
   this.document.getElementById('start').addEventListener('click', () => {
     // grab our canvas
@@ -86,7 +99,6 @@ window.onload = function() {
   })
 }
 
-
 function didntGetStream() {
   alert('Stream generation failed.');
 }
@@ -102,106 +114,30 @@ function gotStream(stream) {
   mediaStreamSource.connect(meter);
 
   // kick off the visual updating
-  // console.log('VISUAL', typeof visuals[currentVISUAL])
-  visuals[currentVISUAL].drawLoop();
-  // drawLoop();
+  drawLoop();
+  // visuals[current].drawLoop();
+  // spiral1.draw()
+}
+
+function drawLoop() {
+  // drawBars()
+  // spiral1.draw()
+  // rafID = visuals[current] 
+  // console.log(visuals[current].draw)
+  console.log(current)
+  console.log(visuals[current])
+  visuals[current].draw(canvas, canvasContext, meter) 
+  // rafID = window.requestAnimationFrame( drawLoop );
 }
 
 
-// >> >> >> >> VISUALS >> >> >> >>  
+// >> >> >> >> >> VISUALS >> >> >> >> >> >>
+// >> >> >> >> >> VISUALS >> >> >> >> >> >>
+// >> >> >> >> >> VISUALS >> >> >> >> >> >>
 
-// BARS VISUAL 
-bars.drawLoop = function() {
-  // clear the background
-  // canvasContext.clearRect(0,0,WIDTH,HEIGHT);
-
-  // check if we're currently clipping
-  if (meter.checkClipping())
-    canvasContext.fillStyle = "red";
-  else
-    canvasContext.fillStyle = `rgba(${Math.random() * 255}, 
-                                    ${Math.random() * 255}, 
-                                    ${Math.random() * 255},
-                                    ${Math.random() * 1})`;
-
-  // draw a bar based on the current volume
-  canvasContext.fillRect(0, 0, meter.volume*WIDTH*levelNum, HEIGHT); 
-  canvasContext.fillRect(WIDTH, 0, meter.volume*WIDTH*-levelNum, HEIGHT);
-
-  // set up the next visual callback
-  rafID = window.requestAnimationFrame( bars.drawLoop );
-}
-
-// PARTICLES VISUAL
-particles.allParticles = {}; 
-particles.particleIndex = 0; 
-particles.particleNum = 1; 
-
-particles.drawLoop = function() {
-  intervalID = setInterval(function() {
-    // console.log('levelNum: ', levelNum)
-    // console.log('METER VOLUME: ', meter.volume)
-    canvasContext.globalCompositeOperation = "source-over";
-    canvasContext.fillStyle = "rgba(0,0,0,0.1)";
-    canvasContext.fillRect(0, 0, WIDTH, HEIGHT);
-  
-    for (var i = 0; i < particles.particleNum; i++) {
-      new particles.Particle(); 
-    }
-  
-    canvasContext.globalCompositeOperation = "lighter";
-    for (var i in particles.allParticles) {
-      particles.allParticles[i].draw();
-    }
-  }, 2000);
-
-  rafID = window.requestAnimationFrame( particles.drawLoop );
-}
-
-particles.Particle = function() {
-  this.x = WIDTH / 2; 
-  this.y = HEIGHT /2; 
-  this.vx = Math.random() * 10 - 5; 
-  this.vy = Math.random() * 10 - 5; 
-  this.gravity = 0.3; 
-
-  particles.particleIndex++; 
-  particles.allParticles[particles.particleIndex] = this;
-  this.id = particles.particleIndex; 
-
-  this.life = 0; 
-  this.maxLife = Math.random() * 30 + 50; 
-  // this.color = "hsla(" + parseInt(Math.random() * 255, 0) + ",100%, 55%)";
-  if (this.id % 2 === 0) {
-    this.color = "red";
-  } else {
-    this.color = "#7800ff";
-  }
-}
-
-particles.Particle.prototype.draw = function() {
-  this.x += this.vx;
-  this.y += this.vy;
-
-  if (Math.random() < 0.1) {
-    this.vx = Math.random() * 10 - 5; 
-    this.vy = Math.random() * 10 - 5; 
-  }
-
-  this.life++;
-  if (this.life >= this.maxLife) {
-    delete particles.allParticles[this.id];
-  }
-
-  canvasContext.fillStyle = this.color; 
-  canvasContext.fillRect(this.x, this.y, 5, 5); 
-}
-
-visuals['1'] = bars; 
-visuals['2'] = particles; 
 
 // KILL SESSION
-function destroyNode() {
+function destroyMeter() {
   meter.shutdown();
 }
 
@@ -210,7 +146,4 @@ function clearAnimation() {
   console.log('rafID', rafID)
   window.cancelAnimationFrame( rafID );
   clearInterval(intervalID);
-
-  // rafID = null;
-  // intervalID = null; 
 }

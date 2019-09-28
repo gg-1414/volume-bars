@@ -77,7 +77,7 @@ button {
   padding: 16px 32px;
   border-radius: 3px;
   cursor: pointer;
-  transition: 300ms;
+  transition: 450ms;
   color: transparent;
   border: 5px solid rgba(0,0,0,0.1);
 }
@@ -87,6 +87,7 @@ button:focus {
 }
 
 .settings button:hover {
+  transition: 300ms;
   color: white;
   background-color: #ff000091;
   background-color: #27409ab8;
@@ -137,7 +138,7 @@ button:focus {
 #visuals-list {
   width: 100%; 
   position: fixed;
-  bottom: 0; 
+  bottom: -5px; 
   display: flex;
   flex-wrap: wrap;
   z-index: 15;
@@ -150,10 +151,12 @@ button:focus {
   height: 82px;
   width: 137px;
   opacity: 0.05;
+  position: relative; 
 }
 
 #visuals-list button:hover {
   opacity: 0.7;
+  transition: 300ms;
 }
 
 #visuals-list button:hover {
@@ -166,11 +169,7 @@ button:focus {
   outline: none; 
 }
 
-#visual-one, #visual-two {
-  position: relative; 
-}
-
-#visual-one:before {
+#visual-1:before {
   content: "";
   width: 100%;
   height: 100%;
@@ -181,11 +180,55 @@ button:focus {
   background-size: cover; 
   background-position: center;
 }
-#visual-two:before {
+#visual-2:before {
   content: "";
   width: 100%;
   height: 100%;
   background: url('images/two.png') no-repeat;
+  position: absolute;
+  top: 0;
+  left: 0; 
+  background-size: cover; 
+  background-position: center;
+}
+#visual-3:before {
+  content: "";
+  width: 100%;
+  height: 100%;
+  background: url('images/spiral_1.png') no-repeat;
+  position: absolute;
+  top: 0;
+  left: 0; 
+  background-size: cover; 
+  background-position: center;
+}
+#visual-4:before {
+  content: "";
+  width: 100%;
+  height: 100%;
+  background: url('images/spiral_2.png') no-repeat;
+  position: absolute;
+  top: 0;
+  left: 0; 
+  background-size: cover; 
+  background-position: center;
+}
+#visual-5:before {
+  content: "";
+  width: 100%;
+  height: 100%;
+  background: url('images/spiral_3.png') no-repeat;
+  position: absolute;
+  top: 0;
+  left: 0; 
+  background-size: cover; 
+  background-position: center;
+}
+#visual-6:before {
+  content: "";
+  width: 100%;
+  height: 100%;
+  background: url('images/spiral_4.png') no-repeat;
   position: absolute;
   top: 0;
   left: 0; 

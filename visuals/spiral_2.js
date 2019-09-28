@@ -1,33 +1,31 @@
 var rafID;
 
-window.onload = function() {
-  var canvas = document.getElementById("canvas");
+const spiral2 = {
+  label: 'spiral2',
+	stop: false, 
+	draw: null, 
+};
 
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-
-  var centerX = canvas.width / 2,
-      centerY = canvas.height / 2; 
-
-  var context = canvas.getContext("2d");
-
-  // canvas dimensions resized when window is resized
-  addEventListener("resize", () => { // window.addEventListner 
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-  });
+spiral2.draw = function(canvas, context, meter) {
+  this.stop = false; 
 
   var time = 0.0;
   
   function mainLoop() {
       requestAnimationFrame(mainLoop);
+
+      if ( spiral2.stop ) {
+        window.cancelAnimationFrame( rafID );
+        return; 
+      }
+
       time += 0.01;
       
       //--->
       context.clearRect(0,0,canvas.width,canvas.height);
       context.save(); // save the state of everything called before 
       
-      context.translate(centerX, centerY); // move context to center of canvas
+      context.translate(canvas.width / 2, canvas.height / 2); // move context to center of canvas
       
       for(var i = 0; i < 360; i+=5) { // i represents each line drawn
 
@@ -42,8 +40,8 @@ window.onload = function() {
         // var angle_4 = ((180 + i) + 180 * Math.sin(time)) * (Math.PI / 180);
         var angle_4 = ((360 + i) + 180 * Math.sin(time)) * (Math.PI / 180);
         
-        let moveX = -Math.cos(angle_1) * (centerX * Math.sin(time)) * 0.8,
-            moveY = -Math.sin(angle_1) * (centerX * Math.sin(time)) * 0.8;
+        let moveX = -Math.cos(angle_1) * (canvas.width / 2 * Math.sin(time)) * 0.8,
+            moveY = -Math.sin(angle_1) * (canvas.width / 2 * Math.sin(time)) * 0.8;
 
         let line1X = Math.cos(angle_2) * canvas.width / (7.5 * Math.cos(time) + 2.5 * Math.sin(time)),
             line1Y = Math.sin(angle_2) * canvas.width / (7.5 * Math.cos(time) + 2.5 * Math.sin(time));
@@ -77,5 +75,5 @@ window.onload = function() {
   }
 
   rafID = requestAnimationFrame(mainLoop);
-
+  window.requestAnimationFrame(mainLoop)
 }
