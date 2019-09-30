@@ -8,20 +8,20 @@ const spiral1 = {
 
 spiral1.draw = function(canvas, context, meter) {
 	this.stop = false; 
-	console.log('inside draw function')
 
   var time = 0.0;
 
 	function mainLoop() {
-		console.log('inside loop')
-		requestAnimationFrame(mainLoop);
-
+		console.log('inside spiral 1');
 		if ( spiral1.stop ) {
 			window.cancelAnimationFrame( rafID );
 			return; 
 		}
-		
-		time += 0.005;
+
+		requestAnimationFrame(mainLoop);
+		// console.log('meter.volume: ', meter.volume)
+
+		time += 0.01;
 		
 		//--->
 		context.clearRect(0,0,canvas.width,canvas.height);

@@ -6,17 +6,19 @@ const spiral3 = {
 }
 
 spiral3.draw = function(canvas, context, meter) {
-
+	this.stop = false; 
+	
   var time = 0.0;
   
   function mainLoop() {
-		requestAnimationFrame(mainLoop);
-		
+		console.log('inside spiral 3');
 		if ( spiral3.stop ) {
 			window.cancelAnimationFrame( rafID );
 			return; 
 		}
 
+		requestAnimationFrame(mainLoop);
+		
 	  time += 0.01;
 	  
 	  //--->

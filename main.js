@@ -11,7 +11,8 @@ var levelNum = 15;
 // 15 default for indoor space playing music from laptop at a low level
 // adjust this from input field input#level depending on how loud the environment is
 
-var current = '3'; 
+var start = false;
+var current = '6'; 
 
 // >> Visuals Key: >> 
 var visuals = {
@@ -21,7 +22,7 @@ var visuals = {
   '4': spiral2, 
   '5': spiral3, 
   '6': spiral4, 
-  '7': starwarp, 
+  // '7': starwarp, 
 };
 
 
@@ -50,9 +51,12 @@ window.onload = function() {
   var visualsList = this.document.getElementById('visuals-list');
 
   visualsList.addEventListener('click', function(e){
-    visuals[current].stop = true;
-    current = e.target.dataset.id;
-    drawLoop();
+    if (e.target.dataset.id) {
+      visuals[current].stop = true;
+      current = e.target.dataset.id;
+      console.log('current', current);
+      drawLoop();
+    }
   })
 
   this.document.getElementById('stop').addEventListener('click', () => {
@@ -63,6 +67,7 @@ window.onload = function() {
   // << << << << << << << << << << 
 
   this.document.getElementById('start').addEventListener('click', () => {
+    start = true; 
     // grab our canvas
     canvasContext = document.getElementById( "canvas" ).getContext("2d");
     
@@ -124,9 +129,11 @@ function drawLoop() {
   // spiral1.draw()
   // rafID = visuals[current] 
   // console.log(visuals[current].draw)
-  console.log(current)
-  console.log(visuals[current])
-  visuals[current].draw(canvas, canvasContext, meter) 
+  // console.log(current)
+  // console.log(visuals[current])
+  // console.log(rafID);
+  visuals[current].draw(canvas, canvasContext, meter);
+  // starwarp();
   // rafID = window.requestAnimationFrame( drawLoop );
 }
 

@@ -11,12 +11,13 @@ bars.draw = function(canvas, context, meter) {
   this.stop = false; 
 
   function mainLoop() {
-    requestAnimationFrame(mainLoop);
-
     if (bars.stop) {
       window.cancelAnimationFrame( rafID );
       return; 
     }
+    
+    requestAnimationFrame(mainLoop);
+
 
     // clear the background
     canvasContext.clearRect(0,0,canvas.width,canvas.height);

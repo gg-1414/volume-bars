@@ -11,14 +11,15 @@ spiral4.draw = function(canvas, context, meter) {
   var time = 0.0;
   
   function mainLoop() {
-		requestAnimationFrame(mainLoop);
-
+		console.log('inside spiral 4');
 		if ( spiral4.stop ) {
 			window.cancelAnimationFrame( rafID );
 			return; 
 		}
-		
-		time += 0.01;
+
+		requestAnimationFrame(mainLoop);
+
+		time += 0.009;
 		
 		//--->
 		context.clearRect(0,0,canvas.width,canvas.height);
@@ -55,7 +56,7 @@ spiral4.draw = function(canvas, context, meter) {
 					line4Y = Math.sin(angle_5) * canvas.width / 5;
 			
 			context.beginPath();
-			context.strokeStyle = `hsl(${i * 7}, 100%, 60%)`
+			context.strokeStyle = `hsl(${i * 50}, 100%, 60%)`
 
 			// context.strokeStyle = `hsl(${i * 10 }, ${i*1}, 100%)`
 			context.moveTo(moveX, moveY);
@@ -66,6 +67,7 @@ spiral4.draw = function(canvas, context, meter) {
 			context.lineTo(line4X, line4Y);
 
 			context.lineWidth = 2;
+			context.lineWidth = 4;
 			// context.closePath();
 			context.stroke();
 		}    

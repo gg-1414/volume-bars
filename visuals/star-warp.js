@@ -6,7 +6,7 @@ const starwarp = function() {
 	document.body.appendChild(app.view);
 	
 	// Get the texture for rope.
-	const starTexture = PIXI.Texture.from('../images/one.png');
+	const starTexture = PIXI.Texture.from('../images/spiral_1.png');
 	
 	const starAmount = 1000;
 	let cameraZ = 0;
