@@ -12,11 +12,11 @@ var levelNum = 15;
 // adjust this from input field input#level depending on how loud the environment is
 
 var start = false;
-var current = '6'; 
+var current = '1'; 
 
 // >> Visuals Key: >> 
 var visuals = {
-  // '1': bars,
+  '1': bars,
   // '2': particles, 
   '3': spiral1, 
   '4': spiral2, 
