@@ -2,22 +2,48 @@
 <html>
 	<head>
 		<title>Volume Meter Sample</title>
+		<script src="./pixi.min.js"></script>
+		<script src="./pixi-filters.js"></script>
+		<link rel="stylesheet" type="text/css" href="keyframes.css"/> 
 		<link rel="stylesheet" type="text/css" href="style.css"/> 
+		<!-- <script src="p5/p5.min.js"></script> -->
+
 		<!-- Include the volume meter component -->
 		<script src="volume-meter.js"></script>
+
+		<!-- Include the visuals -->
+		<script src="./visuals/bars.js"></script>
+		<!-- <script src="./visuals/particles.js"></script> -->
+		<script src="./visuals/spiral_1.js"></script>
+		<script src="./visuals/spiral_2.js"></script>
+		<script src="./visuals/spiral_3.js"></script>
+		<script src="./visuals/spiral_4.js"></script>
+		<script src="./visuals/star-warp.js"></script>
+		
 		<!-- Include the main app logic -->
 		<script src="main.js"></script>
 	</head>
 	<body>
-		<div id="background"></div>
-		<canvas id="meter" width="500" height="50"></canvas>
-		<div class="buttons">
+		<!-- <div id="background" class="bg-pulsing-radial"></div>  -->
+		<div id="background" class="bg-glitchy-tv"></div>
+		<div id="canvas-wrapper">
+			<canvas id="canvas" width="500" height="50"></canvas>
+		</div>
+		<div class="settings">
 			<div class="level-input">
-				<label for="level">Level</label>
-				<input type="text" name="level" id="level">
+				<input type="text" name="level" id="level" placeholder="Volume Level">
 			</div>
 			<button id="start">START</button>
 			<button id="stop">STOP</button>
+		</div>
+		<div id="visuals-list">
+			<button id="visual-1" data-id="1"></button>
+			<!-- <button id="visual-2" data-id="2"></button> -->
+			<button id="visual-3" data-id="3"></button>
+			<button id="visual-4" data-id="4"></button>
+			<button id="visual-5" data-id="5"></button>
+			<button id="visual-6" data-id="6"></button>
+			<!-- <button id="visual-7" data-id="7"></button> -->
 		</div>
 	</body>
 </html>

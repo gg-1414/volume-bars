@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style> /* set the CSS */
+
+/* .line {
+  fill: none;
+  stroke: rgba(255,0,0,0.3);
+  stroke-width: 2px;
+} */
+
+.x-axis, .y-axis { 
+  position: absolute; 
+  opacity: 0.6;
+}
+.x-axis {
+  width: 100vw;
+  /* bottom: 424px;
+  left: -26px; */
+  bottom: 449px;
+  left: -23px;
+}
+.y-axis {
+  height: 100vh;
+  /* left: 271px;
+  top: 20px; */
+  left: 253px;
+  top: 21px;
+}
+svg {
+  position: relative;
+  z-index: -10;
+  /* left: -42px;
+  bottom: -13px; */
+  left: -29px;
+  bottom: 6px;
+}
+</style>
+<body>
+
+<!-- load the d3.js library -->    	
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script>
+
+// set the dimensions and margins of the graph
+var margin = {top: 20, right: 20, bottom: 30, left: 50},
+    width = window.innerWidth - margin.left - margin.right,
+    height = window.innerHeight - margin.top - margin.bottom;
+
+
+// set the ranges
+var x = d3.scaleLinear().range([0, width]);
+var y = d3.scaleLinear().range([0, height]);
+
+
+// define the line
+var line = d3.line()
+    .x(function(d) { return x(d.moveX); })
+    .y(function(d) { return y(d.moveY); });
+
+  
+// append the svg obgect to the body of the page
+// appends a 'group' element to 'svg'
+// moves the 'group' element to the top left margin
+var svg = d3.select("body").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform",
+          "translate(" + margin.left + "," + margin.top + ")");
+
+function draw(data, key) {
+  
+  var data = data[key];
+ 
+  // Scale the range of the data
+  x.domain(d3.extent(data, function(d) { return Math.max(d.moveX); }));
+  y.domain(d3.extent(data, function(d) { return Math.max(d.moveY); }));
+  
+  // Add the valueline path.
+  svg.append("path")
+      .data([data])
+      .attr("class", "line")
+      .attr("d", line);
+
+  // Add the X Axis
+  svg.append("g")
+      .attr("transform", "translate(0," + height + ")")
+      .call(d3.axisBottom(x));
+
+  // Add the Y Axis
+  svg.append("g")
+      .call(d3.axisLeft(y));
+  }
+
+
+// Get the data
+d3.json("data/moveToData_180.json", function(error, data) {
+  if (error) throw error;
+
+  // trigger render
+  draw(data, "moveToData");
+  // draw(cutOffPoints2, "moveToData");
+});
+
+</script>
+</body>
