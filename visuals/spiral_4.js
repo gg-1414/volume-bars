@@ -5,21 +5,21 @@ const spiral4 = {
 	draw: null, 
 };
 
-spiral4.draw = function(canvas, context, meter) {
+spiral4.draw = function(canvas, context) {
 	this.stop = false; 
-
   var time = 0.0;
   
   function mainLoop() {
 		console.log('inside spiral 4');
-		if ( spiral4.stop ) {
+
+		if (spiral4.stop) {
 			window.cancelAnimationFrame( rafID );
 			return; 
 		}
 
 		requestAnimationFrame(mainLoop);
 
-		time += 0.009;
+		time += 0.001;
 		
 		//--->
 		context.clearRect(0,0,canvas.width,canvas.height);
@@ -32,12 +32,9 @@ spiral4.draw = function(canvas, context, meter) {
 			// angle * (Math.PI / 180) => angle in radians
 			
 			var angle_1 = ((15 + i) + 180 * Math.sin(time)) * (Math.PI / 180);
-			// var angle_1 = ((90 + i) + 180 * Math.sin(time)) * (Math.PI / 180); 
 			var angle_2 = ((45 + i) + 180 * Math.sin(time)) * (Math.PI / 180);
 			var angle_3 = ((90 + i) + 180 * Math.sin(time)) * (Math.PI / 180);
-			// var angle_3 = ((135 + i) + 180 * Math.sin(time)) * (Math.PI / 180);
 			var angle_4 = ((270 + i) + 180 * Math.sin(time)) * (Math.PI / 180);
-			// var angle_4 = ((180 + i) + 180 * Math.sin(time)) * (Math.PI / 180);
 			var angle_5 = ((360 + i) + 180 * Math.sin(time)) * (Math.PI / 180);
 			
 			let moveX = -Math.cos(angle_1) * (canvas.width / 2 * Math.sin(time)) * 0.8,
@@ -58,9 +55,7 @@ spiral4.draw = function(canvas, context, meter) {
 			context.beginPath();
 			context.strokeStyle = `hsl(${i * 50}, 100%, 60%)`
 
-			// context.strokeStyle = `hsl(${i * 10 }, ${i*1}, 100%)`
 			context.moveTo(moveX, moveY);
-			// context.lineTo(moveX+10, moveY+10);
 			context.lineTo(line1X, line1Y);
 			context.lineTo(line2X, line2Y);
 			context.lineTo(line3X, line3Y);
@@ -68,7 +63,6 @@ spiral4.draw = function(canvas, context, meter) {
 
 			context.lineWidth = 2;
 			context.lineWidth = 4;
-			// context.closePath();
 			context.stroke();
 		}    
 		

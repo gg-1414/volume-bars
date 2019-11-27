@@ -12,11 +12,11 @@ var levelNum = 15;
 // adjust this from input field input#level depending on how loud the environment is
 
 var start = false;
-var current = '1'; 
+var current = '3'; 
 
 // >> Visuals Key: >> 
 var visuals = {
-  '1': bars,
+  // '1': bars,
   // '2': particles, 
   '3': spiral1, 
   '4': spiral2, 
@@ -36,19 +36,19 @@ window.onload = function() {
   canvasContext = canvas.getContext("2d");
 
   // canvas dimensions resized when window is resized
-  addEventListener("resize", () => { // window.addEventListener 
+  addEventListener("resize", () => { 
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
   });
 
-  // >> Event Listeners >> 
+  // Event Listeners 
   level.addEventListener('keypress', (e) => {
     if (e.keyCode == 13) { // pressing enter sets levelNum
       levelNum = e.target.value; 
     }
   })
 
-  var visualsList = this.document.getElementById('visuals-list');
+  var visualsList = this.document.getElementById('spirals-list');
 
   visualsList.addEventListener('click', function(e){
     if (e.target.dataset.id) {
@@ -64,7 +64,6 @@ window.onload = function() {
     visuals[current].stop = true;
   })
 
-  // << << << << << << << << << << 
 
   this.document.getElementById('start').addEventListener('click', () => {
     start = true; 
@@ -120,27 +119,11 @@ function gotStream(stream) {
 
   // kick off the visual updating
   drawLoop();
-  // visuals[current].drawLoop();
-  // spiral1.draw()
 }
 
 function drawLoop() {
-  // drawBars()
-  // spiral1.draw()
-  // rafID = visuals[current] 
-  // console.log(visuals[current].draw)
-  // console.log(current)
-  // console.log(visuals[current])
-  // console.log(rafID);
   visuals[current].draw(canvas, canvasContext, meter);
-  // starwarp();
-  // rafID = window.requestAnimationFrame( drawLoop );
 }
-
-
-// >> >> >> >> >> VISUALS >> >> >> >> >> >>
-// >> >> >> >> >> VISUALS >> >> >> >> >> >>
-// >> >> >> >> >> VISUALS >> >> >> >> >> >>
 
 
 // KILL SESSION
@@ -149,8 +132,6 @@ function destroyMeter() {
 }
 
 function clearAnimation() {
-  console.log('interval', intervalID)
-  console.log('rafID', rafID)
   window.cancelAnimationFrame( rafID );
   clearInterval(intervalID);
 }

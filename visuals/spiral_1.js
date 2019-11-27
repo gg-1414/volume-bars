@@ -6,22 +6,21 @@ const spiral1 = {
 	draw: null, 
 };
 
-spiral1.draw = function(canvas, context, meter) {
+spiral1.draw = function(canvas, context) {
 	this.stop = false; 
-
   var time = 0.0;
 
 	function mainLoop() {
 		console.log('inside spiral 1');
-		if ( spiral1.stop ) {
+
+		if (spiral1.stop) {
 			window.cancelAnimationFrame( rafID );
 			return; 
 		}
 
 		requestAnimationFrame(mainLoop);
-		// console.log('meter.volume: ', meter.volume)
 
-		time += 0.01;
+		time += 0.001;
 		
 		//--->
 		context.clearRect(0,0,canvas.width,canvas.height);
@@ -29,17 +28,14 @@ spiral1.draw = function(canvas, context, meter) {
 		
 		context.translate(canvas.width / 2, canvas.height / 2); // move context to center of canvas
 		
-		for(var i = 0; i < 270; i+=5) { // i represents each line drawn
+		for(var i = 0; i < 270; i += 5) { // i represents each line drawn
 	
 			// angle * (Math.PI / 180) => angle in radians
 			
-			var angle_1 = ((45 + i) + 180 * Math.sin(time)) * (Math.PI / 180);
-			// var angle_1 = ((90 + i) + 180 * Math.sin(time)) * (Math.PI / 180); 
+			var angle_1 = ((45 + i) + 180 * Math.sin(time)) * (Math.PI / 180); 
 			var angle_2 = ((90 + i) + 180 * Math.sin(time)) * (Math.PI / 180);
 			var angle_3 = ((180 + i) + 180 * Math.sin(time)) * (Math.PI / 180);
-			// var angle_3 = ((135 + i) + 180 * Math.sin(time)) * (Math.PI / 180);
 			var angle_4 = ((270 + i) + 180 * Math.sin(time)) * (Math.PI / 180);
-			// var angle_4 = ((180 + i) + 180 * Math.sin(time)) * (Math.PI / 180);
 			var angle_5 = ((360 + i) + 180 * Math.sin(time)) * (Math.PI / 180);
 			
 			let moveX = -Math.cos(angle_1) * (canvas.width / 2 * Math.sin(time)) * 0.8,
@@ -61,14 +57,12 @@ spiral1.draw = function(canvas, context, meter) {
 			context.strokeStyle = `hsl(${i * 2}, 100%, 60%)`
 	
 			context.moveTo(moveX, moveY);
-			// context.lineTo(moveX+10, moveY+10);
 			context.lineTo(line1X, line1Y);
 			context.lineTo(line2X, line2Y);
 			context.lineTo(line3X, line3Y);
 			context.lineTo(line4X, line4Y);
 	
 			context.lineWidth = 6;
-			// context.closePath();
 			context.stroke();
 		}    
 		
@@ -77,6 +71,5 @@ spiral1.draw = function(canvas, context, meter) {
 	}
 
 	rafID = window.requestAnimationFrame(mainLoop);
-	// console.log(window.requestAnimationFrame(mainLoop));
 	window.requestAnimationFrame(mainLoop)
 }

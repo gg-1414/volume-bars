@@ -6,22 +6,21 @@ const spiral2 = {
 	draw: null, 
 };
 
-spiral2.draw = function(canvas, context, meter) {
+spiral2.draw = function(canvas, context) {
   this.stop = false; 
-
   var time = 0.0;
   
   function mainLoop() {
     console.log('inside spiral 2');
-    if ( spiral2.stop ) {
+
+    if (spiral2.stop) {
       window.cancelAnimationFrame( rafID );
       return; 
     }
 
     requestAnimationFrame(mainLoop);
 
-
-    time += 0.01;
+    time += 0.001;
     
     //--->
     context.clearRect(0,0,canvas.width,canvas.height);
@@ -34,12 +33,8 @@ spiral2.draw = function(canvas, context, meter) {
       // angle * (Math.PI / 180) => angle in radians
       
       var angle_1 = ((45 + i) + 180 * Math.sin(time)) * (Math.PI / 180);
-      // var angle_1 = ((90 + i) + 180 * Math.sin(time)) * (Math.PI / 180); 
       var angle_2 = ((90 + i) + 180 * Math.sin(time)) * (Math.PI / 180);
       var angle_3 = ((180 + i) + 180 * Math.sin(time)) * (Math.PI / 180);
-      // var angle_3 = ((135 + i) + 180 * Math.cos(time)) * (Math.PI / 180);
-      // var angle_4 = ((270 + i) + 180 * Math.sin(time)) * (Math.PI / 180);
-      // var angle_4 = ((180 + i) + 180 * Math.sin(time)) * (Math.PI / 180);
       var angle_4 = ((360 + i) + 180 * Math.sin(time)) * (Math.PI / 180);
       
       let moveX = -Math.cos(angle_1) * (canvas.width / 2 * Math.sin(time)) * 0.8,
@@ -54,22 +49,15 @@ spiral2.draw = function(canvas, context, meter) {
       let line3X = Math.cos(angle_4) * canvas.width / 1,
           line3Y = Math.sin(angle_4) * canvas.width / 1;
 
-      // let line4X = Math.cos(angle_5) * canvas.width / 1,
-      //     line4Y = Math.sin(angle_5) * canvas.width / 1;
       
       context.beginPath();
-      // context.strokeStyle = `hsl(${i * 100}, 100%, 60%)`
       context.strokeStyle = `hsl(${i * 50}, 100%, 60%)`
-      // context.strokeStyle = `hsl(${i * 10 }, ${i*1}, 100%)`
       context.moveTo(moveX, moveY);
-      // context.lineTo(moveX+10, moveY+10);
       context.lineTo(line1X, line1Y);
       context.lineTo(line2X, line2Y);
       context.lineTo(line3X, line3Y);
-      // context.lineTo(line4X, line4Y);
 
       context.lineWidth = 5;
-      // context.closePath();
       context.stroke();
     }    
     
