@@ -1,13 +1,11 @@
-var rafID;
-
 const spiral1 = {
-	label: 'spiral1',
 	stop: false, 
-	draw: null, 
+	draw: null 
 };
 
-spiral1.draw = function(canvas, context) {
+spiral1.draw = function() {
 	this.stop = false; 
+	
   var time = 0.0;
 
 	function mainLoop() {

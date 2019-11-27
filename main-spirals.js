@@ -1,4 +1,4 @@
-let canvas, speed, spiralsList, canvasContext
+let canvas, speed, spiralsList, context, rafID
 
 let current = 1
 let spirals = {
@@ -16,7 +16,7 @@ window.onload = function() {
   canvas.width = window.innerWidth 
   canvas.height = window.innerHeight 
 
-  canvasContext = canvas.getContext("2d");
+  context = canvas.getContext("2d");
 
   // canvas dimensions resized when window is resized
   window.addEventListener('resize', () => {
@@ -36,5 +36,5 @@ window.onload = function() {
 }
 
 function drawLoop() {
-  spirals[current].draw(canvas, canvasContext)
+  spirals[current].draw(context)
 }

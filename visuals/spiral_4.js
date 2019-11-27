@@ -1,11 +1,9 @@
-var rafID;
-
 const spiral4 = {
 	stop: false, 
 	draw: null, 
 };
 
-spiral4.draw = function(canvas, context) {
+spiral4.draw = function() {
 	this.stop = false; 
   var time = 0.0;
   
