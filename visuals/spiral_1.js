@@ -38,14 +38,14 @@ spiral1.draw = function() {
 			let line1X = Math.cos(angle_2) * canvas.width / (7.5 * Math.cos(time) + 2.5 * Math.sin(time)),
 					line1Y = Math.sin(angle_2) * canvas.width / (7.5 * Math.cos(time) + 2.5 * Math.sin(time))
 	
-			let line2X = Math.cos(angle_3) * canvas.width / 1,
-					line2Y = Math.sin(angle_3) * canvas.width / 1
+			let line2X = Math.cos(angle_3) * canvas.width,
+					line2Y = Math.sin(angle_3) * canvas.width
 	
-			let line3X = Math.cos(angle_4) * canvas.width / 1,
-					line3Y = Math.sin(angle_4) * canvas.width / 1
+			let line3X = Math.cos(angle_4) * canvas.width,
+					line3Y = Math.sin(angle_4) * canvas.width
 	
-			let line4X = Math.cos(angle_5) * canvas.width / 1,
-					line4Y = Math.sin(angle_5) * canvas.width / 1
+			let line4X = Math.cos(angle_5) * canvas.width,
+					line4Y = Math.sin(angle_5) * canvas.width
 			
 
 			context.beginPath()

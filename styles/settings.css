@@ -29,9 +29,6 @@
 } */
 
 .settings button:active {
-  /* box-shadow: 0 2px 0 1px #981356;
-  transform: translateY(16px); */
-  /* box-shadow: 0 2px 0 1px #01ffd0; */
   transform: translateY(12px);
 }
 
@@ -44,13 +41,24 @@
   width: 137px;
   transition: 300ms;
   opacity: 0.05;
+  opacity: 0.8;
 }
 
 .level-input:hover {
   opacity: 0.8;
 }
 
-#level {
+/* #level {
+  padding: 7px;
+  font-size: 18px;
+  border-radius: 3px;
+  border: none;
+  width: 100%;
+  text-align: right;
+  border: 5px solid rgba(0,0,0,0.5);
+} */
+
+input {
   padding: 7px;
   font-size: 18px;
   border-radius: 3px;

@@ -38,3 +38,9 @@ window.onload = function() {
 function drawLoop() {
   spirals[current].draw(context)
 }
+
+
+// input type number
+  // onkeydown event listener 
+  // if higher than 0.01, throw alert (must be between 0-0.01)
+    // 0.0001 - 0.01 => 0.1 - 10
