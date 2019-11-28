@@ -28,3 +28,12 @@ button:focus {
   outline: none; 
 }
 
+label {
+  color: white;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+input {
+  margin-top: 5px; 
+}

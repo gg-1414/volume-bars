@@ -1,4 +1,5 @@
-let canvas, speed, spiralsList, context, rafID
+let canvas, speedInput, spiralsList, context, rafID
+let speedValue 
 
 let current = 1
 let spirals = {
@@ -10,19 +11,34 @@ let spirals = {
 
 window.onload = function() {
   canvas = this.document.getElementById('canvas') 
-  speed = this.document.getElementById('speed-input')
+  speedInput = this.document.getElementById('speed-input')
   spiralsList = this.document.getElementById('spirals-list')
+  speedValue = parseFloat(speedInput.value) / 1000
 
   canvas.width = window.innerWidth 
   canvas.height = window.innerHeight 
 
-  context = canvas.getContext("2d");
+  context = canvas.getContext("2d")
 
   // canvas dimensions resized when window is resized
   window.addEventListener('resize', () => {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    canvas.width = window.innerWidth
+    canvas.height = window.innerHeight
   })
+
+  // speed input change handler
+  speedInput.oninput = function(e) {
+    const input = parseFloat(e.target.value)
+    console.log('input',input)
+    console.log(`input<${speedInput.min} ?`, !!(input < speedInput.min))
+    console.log(`input>${speedInput.max} ?`, !!(input > speedInput.max))
+
+    if (input < parseFloat(speedInput.min) || input > parseFloat(speedInput.max)) {
+      alert(`Speed must be between ${speedInput.min} - ${speedInput.max}`)
+    } else {
+      speedValue = input / 1000 
+    }
+  }
 
   // animation changes when user clicks on an option from the spirals list
   spiralsList.addEventListener('click', (e) => {
@@ -36,11 +52,7 @@ window.onload = function() {
 }
 
 function drawLoop() {
-  spirals[current].draw(context)
+  spirals[current].draw()
 }
 
 
-// input type number
-  // onkeydown event listener 
-  // if higher than 0.01, throw alert (must be between 0-0.01)
-    // 0.0001 - 0.01 => 0.1 - 10

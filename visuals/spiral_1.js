@@ -17,7 +17,7 @@ spiral1.draw = function() {
 
 		requestAnimationFrame(mainLoop)
 
-		time += 0.001
+		time += speedValue
 
 		context.clearRect(0,0,canvas.width,canvas.height)
 		context.save() // save the state of everything called before 
