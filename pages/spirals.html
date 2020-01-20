@@ -14,6 +14,7 @@
 		<script src="../visuals/spiral_2.js"></script>
 		<script src="../visuals/spiral_3.js"></script>
 		<script src="../visuals/spiral_4.js"></script>
+		<script src="../visuals/spiral_custom.js"></script>
 		
 		<!-- Include the main app logic -->
 		<script src="../main-spirals.js"></script>
@@ -29,12 +30,18 @@
         <label for="speed">Adjust speed 0.1 - 10</label>
 				<input type="number" name="speed" id="speed-input" placeholder="Speed" step="0.1" min="0.1" max="10.0" value="0.1">
 			</div>
+			<div class="custom-sliders">
+				<input type="range" min="0" max="360" value="0" class="slider" id="starting-slider">
+				<input type="range" min="1" max="360" value="270" class="slider" id="total-slider">
+				<input type="range" min="1" max="50" value="5" class="slider" id="distance-slider">
+			</div>
 		</div>
 		<div id="spirals-list">
 			<button data-id="1"></button>
 			<button data-id="2"></button>
 			<button data-id="3"></button>
 			<button data-id="4"></button>
+			<button data-id="5"></button>
 		</div>
 	</body>
 </html>

@@ -1,18 +1,27 @@
-let canvas, speedInput, spiralsList, context, rafID
-let speedValue 
+let context, rafID
+let speedValue, start = 0, total = 270, distance = 5
 
 let current = 1
 let spirals = {
   1: spiral1,
   2: spiral2, 
   3: spiral3, 
-  4: spiral4
+  4: spiral4,
+  5: spiral_custom
+}
+
+function getElement(selector) {
+  return this.document.querySelector(selector)
 }
 
 window.onload = function() {
-  canvas = this.document.getElementById('canvas') 
-  speedInput = this.document.getElementById('speed-input')
-  spiralsList = this.document.getElementById('spirals-list')
+  const canvas = getElement('#canvas') 
+  const speedInput = getElement('#speed-input')
+  const startingSlider = getElement('#starting-slider')
+  const totalSlider = getElement('#total-slider')
+  const distanceSlider = getElement('#distance-slider')
+  const sliders = getElement('.custom-sliders')
+  const spiralsList = getElement('#spirals-list')
   speedValue = parseFloat(speedInput.value) / 1000
 
   canvas.width = window.innerWidth 
@@ -37,6 +46,26 @@ window.onload = function() {
       alert(`Speed must be between ${speedInput.min} - ${speedInput.max}`)
     } else {
       speedValue = input / 1000 
+    }
+  }
+
+  // sliders change handler
+  for (let i = 0; i < sliders.children.length; i++) {
+    sliders.children[i].oninput = function(e) {
+      // e.target.value typeof === string
+      console.log('slider e value', e.target.id)
+
+      switch(e.target.id) {
+        case 'starting-slider':
+          start = parseInt(e.target.value) 
+          break
+        case 'total-slider':
+          total = parseInt(e.target.value) 
+          break 
+        case 'distance-slider':
+          distance = parseInt(e.target.value)
+          break
+      }
     }
   }
 
