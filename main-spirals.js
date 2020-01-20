@@ -1,5 +1,9 @@
 let context, rafID
-let speedValue, start = 0, total = 270, distance = 5
+let speedValue 
+let start = 0, total = 270, distance = 5
+let thickness = 6
+let movement = 45
+let hueComplexity = 2
 
 let current = 1
 let spirals = {
@@ -14,13 +18,14 @@ function getElement(selector) {
   return this.document.querySelector(selector)
 }
 
+function getAllElements(selector) {
+  return this.document.querySelectorAll(selector)
+}
+
 window.onload = function() {
   const canvas = getElement('#canvas') 
   const speedInput = getElement('#speed-input')
-  const startingSlider = getElement('#starting-slider')
-  const totalSlider = getElement('#total-slider')
-  const distanceSlider = getElement('#distance-slider')
-  const sliders = getElement('.custom-sliders')
+  const sliders = getAllElements('.custom-sliders input')
   const spiralsList = getElement('#spirals-list')
   speedValue = parseFloat(speedInput.value) / 1000
 
@@ -50,11 +55,8 @@ window.onload = function() {
   }
 
   // sliders change handler
-  for (let i = 0; i < sliders.children.length; i++) {
-    sliders.children[i].oninput = function(e) {
-      // e.target.value typeof === string
-      console.log('slider e value', e.target.id)
-
+  for (let i = 0; i < sliders.length; i++) {
+    sliders[i].oninput = function(e) {
       switch(e.target.id) {
         case 'starting-slider':
           start = parseInt(e.target.value) 
@@ -64,6 +66,15 @@ window.onload = function() {
           break 
         case 'distance-slider':
           distance = parseInt(e.target.value)
+          break
+        case 'thickness-slider':
+          thickness = parseInt(e.target.value)
+          break
+        case 'hue-complexity-slider':
+          hueComplexity = e.target.value
+          break
+        case 'movement':
+          movement = e.target.value
           break
       }
     }
@@ -75,6 +86,13 @@ window.onload = function() {
       spirals[current].stop = true 
       current = e.target.dataset.id 
       console.log('current visual', current)
+
+      if (current === '5') {
+        getElement('.custom-sliders').style.display = 'block'
+      } else {
+        getElement('.custom-sliders').style.display = 'none'
+      }
+
       drawLoop() 
     }
   })

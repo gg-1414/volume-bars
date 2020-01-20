@@ -67,3 +67,8 @@ input {
   text-align: right;
   border: 5px solid rgba(0,0,0,0.5);
 }
+
+/* Custom Sliders */
+.custom-sliders p {
+  color: white;
+}
