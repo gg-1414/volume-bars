@@ -7,6 +7,7 @@
   flex-direction: column;
   padding: 0 35px 50px;
   border-radius: 20px;
+  max-height: 100vh;
   /* background: linear-gradient(360deg, #a9a9a9, white); */
 }
 
@@ -69,6 +70,36 @@ input {
 }
 
 /* Custom Sliders */
+.custom-sliders {
+  overflow-y: scroll;
+  margin: 30px auto;
+  display: flex;
+  flex-direction: column;
+  padding-right: 18px;
+}
+
 .custom-sliders p {
   color: white;
+  flex: 1; 
+}
+
+.custom-sliders input {
+  width: auto; 
+}
+
+.custom-sliders .angle-wrapper {
+  display: flex; 
+}
+
+.custom-sliders .toggle-angle {
+  color: white;
+  margin: 13px 0;
+  cursor: pointer;
+}
+
+.add-layer-btn {
+  color: white;
+  background: transparent;
+  border: 2px solid white;
+  font-size: 16px;
 }

@@ -1,9 +1,7 @@
 let context, rafID
 let speedValue 
-let start = 0, total = 270, distance = 5
-let thickness = 6
-let movement = 45
-let hueComplexity = 2
+let start, total, distance, thickness, hueComplexity, movement
+let angle1
 
 let current = 1
 let spirals = {
@@ -23,17 +21,28 @@ function getAllElements(selector) {
 }
 
 window.onload = function() {
+  // Initialize 
   const canvas = getElement('#canvas') 
   const speedInput = getElement('#speed-input')
   const sliders = getAllElements('.custom-sliders input')
   const spiralsList = getElement('#spirals-list')
+
+  start = parseInt(getElement('#starting-slider').value)
+  total = parseInt(getElement('#total-slider').value)
+  distance = parseInt(getElement('#distance-slider').value)
+  thickness = parseInt(getElement('#thickness-slider').value)
+  hueComplexity = getElement('#hue-complexity-slider').value
+  movement = parseInt(getElement('#movement-slider').value)
+  angle1 = parseInt(getElement('#angle1-slider').value)
   speedValue = parseFloat(speedInput.value) / 1000
 
   canvas.width = window.innerWidth 
   canvas.height = window.innerHeight 
 
   context = canvas.getContext("2d")
+  // End initialize
 
+  // Event Listeners 
   // canvas dimensions resized when window is resized
   window.addEventListener('resize', () => {
     canvas.width = window.innerWidth
@@ -73,8 +82,11 @@ window.onload = function() {
         case 'hue-complexity-slider':
           hueComplexity = e.target.value
           break
-        case 'movement':
-          movement = e.target.value
+        case 'movement-slider':
+          movement = parseInt(e.target.value)
+          break
+        case 'angle1-slider':
+          angle1 = parseInt(e.target.value)
           break
       }
     }
@@ -88,7 +100,7 @@ window.onload = function() {
       console.log('current visual', current)
 
       if (current === '5') {
-        getElement('.custom-sliders').style.display = 'block'
+        getElement('.custom-sliders').style.display = 'flex'
       } else {
         getElement('.custom-sliders').style.display = 'none'
       }
@@ -96,6 +108,7 @@ window.onload = function() {
       drawLoop() 
     }
   })
+  // End Event Listeners 
 }
 
 function drawLoop() {

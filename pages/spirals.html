@@ -33,19 +33,34 @@
 			<div class="custom-sliders" style="display:none">
 				<p>Starting point</p>
 				<input type="range" min="0" max="360" value="0" class="slider" id="starting-slider">
+
 				<p>Total number of lines</p>
-				<input type="range" min="1" max="360" value="270" class="slider" id="total-slider">
+				<!-- <input type="range" min="1" max="360" value="270" class="slider" id="total-slider"> -->
+				<input type="range" min="1" max="360" value="360" class="slider" id="total-slider">
+
 				<p>Distance between each line</p>
 				<input type="range" min="1" max="50" value="5" class="slider" id="distance-slider">
 
 				<p>Line thickness</p>
-				<input type="range" min="1" max="560" value="6" class="slider" id="thickness-slider">
+				<!-- <input type="range" min="1" max="560" value="6" class="slider" id="thickness-slider"> -->
+				<input type="range" min="1" max="560" value="1" class="slider" id="thickness-slider">
 
 				<p>Hue Complexity</p>
 				<input type="range" min="1" max="100" value="2" class="slider" id="hue-complexity-slider">
 
 				<p>Movement</p>
-				<input type="range" min="1" max="180" value="45" class="slider" id="movement">
+				<input type="range" min="1" max="180" value="45" class="slider" id="movement-slider">
+
+				<p>Angle 1</p>
+				<input type="range" min="0" max="90" value="0" class="slider" id="angle1-slider">
+
+				<button class="add-layer-btn">Add Layers</button>
+
+				<!-- <div class="angle-wrapper disabled">
+					<p>Angle 2</p>
+					<a class="toggle-angle">Off</a>
+				</div>
+				<input type="range" min="0" max="180" value="0" class="slider" id="angle2-slider" disabled=true> -->
 			</div>
 		</div>
 		<div id="spirals-list">
